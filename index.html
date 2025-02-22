@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruiru Technical ID Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+        }
+
+        .form-section {
+            flex: 1;
+        }
+
+        .preview-section {
+            flex: 1;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background: #2ea353;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* ID Card Dimensions (CR80 Standard) */
+        .id-card {
+            width: 85.6mm;
+            height: 54mm;
+            border: 1px solid #ccc;
+            padding: 2mm;
+            position: relative;
+            background: white;
+            box-sizing: border-box;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1mm;
+        }
+
+        .card-header img {
+            width: 12mm;
+            height: 12mm;
+            object-fit: contain;
+        }
+
+        .card-content {
+            display: flex;
+            gap: 2mm;
+        }
+
+        .student-photo {
+            width: 25mm;
+            height: 30mm;
+            border: 1px solid #ccc;
+        }
+
+        .student-details div {
+            margin-bottom: 1mm;
+            font-size: 8pt;
+            line-height: 1.2;
+        }
+
+        .signature-container {
+            position: absolute;
+            bottom: 8mm;
+            right: 2mm;
+            width: 30mm;
+            text-align: center;
+        }
+
+        .authorizing-text {
+            font-size: 6pt;
+            color: #2ea353;
+            margin-top: 1mm;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #2ea353;
+            color: white;
+            text-align: center;
+            padding: 0.5mm 0;
+            font-size: 8pt;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+            }
+            
+            .form-section {
+                display: none;
+            }
+            
+            .id-card {
+                position: absolute;
+                top: 0;
+                left: 0;
+                margin: 0;
+                border: none;
+            }
+            
+            @page {
+                size: 85.6mm 54mm;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <h2>Student ID Generator</h2>
+            
+            <div class="form-group">
+                <label>Student Photo</label>
+                <input type="file" id="photoUpload" accept="image/*">
+                <img id="previewPhoto" class="student-photo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEyIj5VcGxvYWQgUGhvdG88L3RleHQ+PC9zdmc+">
+            </div>
+
+            <div class="form-group">
+                <label>Signature Upload</label>
+                <input type="file" id="signatureUpload" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="name" value="Joseph M. Njama">
+            </div>
+
+            <div class="form-group">
+                <label>Admission Number</label>
+                <input type="text" id="admissionNumber" value="310/12/2026">
+            </div>
+
+            <div class="form-group">
+                <label>Course</label>
+                <input type="text" id="course" value="ICT">
+            </div>
+
+            <div class="form-group">
+                <label>Valid Until</label>
+                <input type="text" id="validUntil" value="31/12/2026">
+            </div>
+
+            <button onclick="printID()">Print ID Card</button>
+        </div>
+
+        <div class="preview-section">
+            <div class="id-card">
+                <div class="card-header">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PHJlY3Qgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjMmViMzUzIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNmZmYiIGZvbnQtc2l6ZT0iOCI+TWluaXN0cnkgb2YgRWR1Y2F0aW9uPC90ZXh0Pjwvc3ZnPg==" alt="Ministry Logo">
+                    <div class="header-text">
+                        <div style="font-size: 9pt; font-weight: bold;">MINISTRY OF EDUCATION</div>
+                        <div style="font-size: 10pt; color: #2ea353; font-weight: bold; line-height: 1.1;">
+                            RUIRU TECHNICAL &<br>
+                            VOCATIONAL COLLEGE
+                        </div>
+                    </div>
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PHJlY3Qgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjMmViMzUzIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNmZmYiIGZvbnQtc2l6ZT0iOCI+UlRVQyBMb2dvPC90ZXh0Pjwvc3ZnPg==" alt="College Logo">
+                </div>
+
+                <div class="card-content">
+                    <img id="cardPhoto" class="student-photo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEyIj5VcGxvYWQgUGhvdG88L3RleHQ+PC9zdmc+">
+                    <div class="student-details">
+                        <div><span style="color: #2ea353;">Name</span><br><span id="cardName">Joseph M. Njama</span></div>
+                        <div><span style="color: #2ea353;">Admission No</span><br><span id="cardAdmission">310/12/2026</span></div>
+                        <div><span style="color: #2ea353;">Course</span><br><span id="cardCourse">ICT</span></div>
+                        <div><span style="color: #2ea353;">Valid Until</span><br><span id="cardValidUntil">31/12/2026</span></div>
+                    </div>
+                </div>
+
+                <div class="signature-container">
+                    <img id="cardSignature" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSIzMCI+PHBhdGggZD0iTTUgMjBoMjBtMTAgMTBsMTUgLTE1IiBzdHJva2U9IiMyZWIzNTMiIHN0cm9rZS13aWR0aD0iMiIvPjx0ZXh0IHg9IjEwIiB5PSIyNSIgZmlsbD0iIzJlYjM1MyIgZm9udC1zaXplPSIxMiI+U2lnbmF0dXJlPC90ZXh0Pjwvc3ZnPg==" style="width: 25mm; height: 8mm;">
+                    <div class="authorizing-text">AUTHORIZING SIGNATURE</div>
+                </div>
+
+                <div class="footer">STUDENT IDENTIFICATION</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update preview when inputs change
+        document.querySelectorAll('input').forEach(input => {
+            if(input.type !== 'file') {
+                input.addEventListener('input', updateCard);
+            }
+        });
+
+        // Handle photo upload
+        document.getElementById('photoUpload').addEventListener('change', function(e) {
+            handleImageUpload(e, 'cardPhoto');
+        });
+
+        // Handle signature upload
+        document.getElementById('signatureUpload').addEventListener('change', function(e) {
+            handleImageUpload(e, 'cardSignature');
+        });
+
+        function handleImageUpload(e, targetId) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById(targetId).src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function updateCard() {
+            document.getElementById('cardName').textContent = document.getElementById('name').value;
+            document.getElementById('cardAdmission').textContent = document.getElementById('admissionNumber').value;
+            document.getElementById('cardCourse').textContent = document.getElementById('course').value;
+            document.getElementById('cardValidUntil').textContent = document.getElementById('validUntil').value;
+        }
+
+        function printID() {
+            window.print();
+        }
+
+        // Initial update
+        updateCard();
+    </script>
+</body>
+</html>

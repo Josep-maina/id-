@@ -86,10 +86,11 @@
             width: 85.6mm;
             height: 54mm;
             background: white;
-            border-radius: 8px;
+            border-radius: 3mm;
             position: relative;
             overflow: hidden;
             page-break-inside: avoid;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .card-header {
@@ -97,79 +98,89 @@
             justify-content: space-between;
             align-items: center;
             padding: 2mm 3mm;
-            border-bottom: 1px solid #e2e8f0;
+            background: white;
         }
 
         .card-header img {
-            width: 14mm;
-            height: 14mm;
+            width: 10mm;
+            height: 10mm;
             object-fit: contain;
-            flex-shrink: 0;
         }
 
         .header-text {
             text-align: center;
             flex: 1;
-            margin: 0 3mm;
-        }
-
-        .header-text div:first-child {
-            font-size: 8pt;
-            font-weight: 700;
-            color: #1a3650;
-        }
-
-        .header-text div:last-child {
-            font-size: 9pt;
-            color: #2ea353;
-            font-weight: 800;
+            margin: 0 2mm;
             line-height: 1.2;
-            margin-top: 1mm;
+        }
+
+        .header-text .ministry {
+            font-size: 7pt;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1mm;
+        }
+
+        .header-text .college {
+            font-size: 8pt;
+            color: #2ea353;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
         .card-content {
             display: flex;
-            gap: 2mm;
+            gap: 3mm;
             padding: 2mm 3mm;
-            height: calc(54mm - 22mm);
         }
 
         .student-photo {
             width: 25mm;
-            height: 30mm;
-            border: 1px solid #e2e8f0;
-            border-radius: 2px;
+            height: 32mm;
+            border: none;
             object-fit: cover;
-            flex-shrink: 0;
         }
 
         .student-details {
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            gap: 1mm;
+            padding-top: 1mm;
         }
 
         .student-details div {
-            font-size: 8pt;
-            line-height: 1.3;
+            font-size: 7pt;
+            line-height: 1.2;
+        }
+
+        .detail-label {
+            color: #2ea353;
+            font-size: 6pt;
             margin-bottom: 0.5mm;
         }
 
-        .student-details span[style*="#2ea353"] {
-            font-weight: 700 !important;
-            display: block;
-            margin-bottom: 0.5mm;
+        .detail-value {
+            color: #333;
+            font-weight: 500;
         }
 
-        #cardName,
-        #cardAdmission,
-        #cardCourse,
-        #cardValidUntil {
-            font-weight: 600;
-            color: #1a3650;
-            word-break: break-word;
-            min-height: 1.5em;
+        .signature-area {
+            position: absolute;
+            bottom: 8mm;
+            right: 3mm;
+            text-align: center;
+        }
+
+        .signature {
+            width: 15mm;
+            height: auto;
+            margin-bottom: 1mm;
+        }
+
+        .signature-label {
+            font-size: 6pt;
+            color: #2ea353;
         }
 
         .footer {
@@ -177,12 +188,13 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: #2ea353;
+            background: #4CAF50;
             color: white;
             text-align: center;
-            padding: 1mm 0;
+            padding: 1.5mm 0;
             font-size: 7pt;
             font-weight: 600;
+            letter-spacing: 0.5pt;
         }
 
         @media print {
@@ -194,7 +206,7 @@
                 print-color-adjust: exact;
             }
 
-             .container {
+            .container {
                 padding: 0 !important;
                 margin: 0 !important;
                 display: block !important;
@@ -211,63 +223,9 @@
             }
 
             .id-card {
-                width: 85.6mm !important;
-                height: 54mm !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                box-shadow: none !important;
-                border: none !important;
-                page-break-after: always;
-                position: relative;
-                overflow: visible !important;
+                border-radius: 3mm;
+                box-shadow: none;
             }
-
-            @page {
-                size: 85.6mm 54mm;
-                margin: 0;
-                padding: 0;
-            }
-						/* Print-specific adjustments */
-            .card-header {
-                padding: 1mm 2mm !important;
-            }
-
-            .card-header img {
-                width: 12mm !important;
-                height: 12mm !important;
-            }
-
-            .header-text div:first-child {
-                font-size: 7pt !important;
-            }
-
-            .header-text div:last-child {
-                font-size: 8pt !important;
-                margin-top: 0.5mm !important;
-            }
-
-            .student-photo {
-                width: 23mm !important;
-                height: 28mm !important;
-            }
-
-            .student-details div {
-                font-size: 7pt !important;
-                margin-bottom: 0.3mm !important;
-            }
-
-            .footer {
-                padding: 0.5mm 0 !important;
-                font-size: 6.5pt !important;
-            }
-        }
-
-        .upload-preview {
-            border: 2px dashed #cbd5e0;
-            border-radius: 6px;
-            padding: 1rem;
-            margin-top: 1rem;
-            background: #f8fafc;
         }
     </style>
 </head>
@@ -290,8 +248,8 @@
             </div>
 
             <div class="form-group">
-                <label>Admission Number</label>
-                <input type="text" id="admissionNumber" placeholder="Enter admission number">
+                <label>Registration Number</label>
+                <input type="text" id="registrationNumber" placeholder="Enter registration number">
             </div>
 
             <div class="form-group">
@@ -312,20 +270,37 @@
                 <div class="card-header">
                     <img src="ministry logo.jpg" alt="Ministry Logo">
                     <div class="header-text">
-                        <div>MINISTRY OF EDUCATION</div>
-                        <div>RUIRU TECHNICAL &<br>VOCATIONAL COLLEGE</div>
+                        <div class="ministry">MINISTRY OF EDUCATION</div>
+                        <div class="college">RUIRU TECHNICAL &<br>VOCATIONAL COLLEGE</div>
                     </div>
                     <img src="logo.png" alt="College Logo">
                 </div>
 
                 <div class="card-content">
-                    <img id="cardPhoto" class="student-photo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2Y4ZjhmOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEyIiBmaWxsPSIjY2NjIj5VcGxvYWQgUGhvdG88L3RleHQ+PC9zdmc+">
+                    <img id="cardPhoto" class="student-photo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2Y4ZjhmOCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEyIiBmaWxsPSIjY2NjIj5VcGxvYWQgUGhvdG88L3RleHQ+PC9zdmc+" alt="Student Photo">
                     <div class="student-details">
-                        <div><span style="color: #2ea353;">Name</span><br><span id="cardName"></span></div>
-                        <div><span style="color: #2ea353;">Admission No</span><br><span id="cardAdmission"></span></div>
-                        <div><span style="color: #2ea353;">Course</span><br><span id="cardCourse"></span></div>
-                        <div><span style="color: #2ea353;">Valid Until</span><br><span id="cardValidUntil"></span></div>
+                        <div>
+                            <div class="detail-label">Name</div>
+                            <div class="detail-value" id="cardName">Joseph M. Njama</div>
+                        </div>
+                        <div>
+                            <div class="detail-label">Registration Number</div>
+                            <div class="detail-value" id="cardRegistration">2301/32/32</div>
+                        </div>
+                        <div>
+                            <div class="detail-label">Course</div>
+                            <div class="detail-value" id="cardCourse">ICT</div>
+                        </div>
+                        <div>
+                            <div class="detail-label">Valid Until</div>
+                            <div class="detail-value" id="cardValidUntil">31/12/2026</div>
+                        </div>
                     </div>
+                </div>
+
+                <div class="signature-area">
+                    <img src="signature.png" alt="Signature" class="signature">
+                    <div class="signature-label">Authorizing Signature</div>
                 </div>
 
                 <div class="footer">STUDENT IDENTIFICATION</div>
@@ -334,14 +309,7 @@
     </div>
 
     <script>
-         window.addEventListener('beforeprint', () => {
-            document.querySelectorAll('.id-card').forEach(card => {
-                card.style.position = 'static';
-                card.style.breakInside = 'avoid';
-            });
-        });
-
-				document.getElementById('photoUpload').addEventListener('change', function(e) {
+        document.getElementById('photoUpload').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -358,16 +326,17 @@
         });
 
         function updateCard() {
-            document.getElementById('cardName').textContent = document.getElementById('name').value;
-            document.getElementById('cardAdmission').textContent = document.getElementById('admissionNumber').value;
-            document.getElementById('cardCourse').textContent = document.getElementById('course').value;
-            document.getElementById('cardValidUntil').textContent = document.getElementById('validUntil').value;
+            document.getElementById('cardName').textContent = document.getElementById('name').value || 'Joseph M. Njama';
+            document.getElementById('cardAdmission').textContent = document.getElementById('admissionNumber').value || '2301/32/32';
+            document.getElementById('cardCourse').textContent = document.getElementById('course').value || 'ICT';
+            document.getElementById('cardValidUntil').textContent = document.getElementById('validUntil').value || '31/12/2026';
         }
 
         function printID() {
             window.print();
         }
 
+        // Initialize card with default values
         updateCard();
     </script>
 </body>

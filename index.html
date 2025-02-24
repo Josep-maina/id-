@@ -325,11 +325,12 @@
             input.addEventListener('input', updateCard);
         });
 
-        function updateCard() {
-            document.getElementById('cardName').textContent = document.getElementById('name').value || 'Joseph M. Njama';
-            document.getElementById('cardAdmission').textContent = document.getElementById('admissionNumber').value || '2301/32/32';
-            document.getElementById('cardCourse').textContent = document.getElementById('course').value || 'ICT';
-            document.getElementById('cardValidUntil').textContent = document.getElementById('validUntil').value || '31/12/2026';
+       function updateCard() {
+    document.getElementById('cardName').textContent = document.getElementById('name').value || 'Joseph M. Njama';
+    // Fix this line:
+    document.getElementById('cardRegistration').textContent = document.getElementById('registrationNumber').value || '2301/32/32';
+    document.getElementById('cardCourse').textContent = document.getElementById('course').value || 'ICT';
+    document.getElementById('cardValidUntil').textContent = document.getElementById('validUntil').value || '31/12/2026';
         }
 
         function printID() {
